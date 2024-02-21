@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "455434773979",
+    "project_id": "inoova-a4e6d",
+    "storage_bucket": "inoova-a4e6d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:455434773979:android:5863e57c62601a37ca33fe",
+        "android_client_info": {
+          "package_name": "com.inoova.inoova"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBSCzA2X476CiF2Iej6uPWLPcgvJVvacVQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
