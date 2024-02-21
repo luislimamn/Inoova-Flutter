@@ -6,15 +6,9 @@ void main() => runApp(
       home: const HomePage(),
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primaryColor: Colors.blue,
-        //primaryColor: const Color(0xff795548),
-        scaffoldBackgroundColor: Colors.white
+          primaryColor: Colors.blue,
+          //primaryColor: const Color(0xff795548),
+          scaffoldBackgroundColor: Colors.white
       ),
     )
 );
-
-/*
-void main() {
-  runApp(const MyApp());
-}
-*/

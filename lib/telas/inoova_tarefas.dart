@@ -1,38 +1,100 @@
 import 'package:flutter/material.dart';
+import '../classes/product.dart';
+
+typedef CartChangedCallback = Function(Product product, bool inCart);
+
+class ShoppingListItem extends StatelessWidget {
+  ShoppingListItem({
+    required this.product,
+    required this.inCart,
+    required this.onCartChanged,
+  }) : super(key: ObjectKey(product));
+
+  final Product product;
+  final bool inCart;
+  final CartChangedCallback onCartChanged;
+
+  Color _getColor(BuildContext context) {
+    // The theme depends on the BuildContext because different
+    // parts of the tree can have different themes.
+    // The BuildContext indicates where the build is
+    // taking place and therefore which theme to use.
+
+    return inCart //
+        ? Colors.black54
+        : Theme.of(context).primaryColor;
+  }
+
+  TextStyle? _getTextStyle(BuildContext context) {
+    if (!inCart) return null;
+
+    return const TextStyle(
+      color: Colors.black54,
+      decoration: TextDecoration.lineThrough,
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      onTap: () {
+        onCartChanged(product, inCart);
+      },
+      leading: CircleAvatar(
+        backgroundColor: _getColor(context),
+        child: Text(product.name[0]),
+      ),
+      title: Text(
+        product.name,
+        style: _getTextStyle(context),
+      ),
+    );
+  }
+}
 
 class InoovaTarefas extends StatefulWidget {
-  const InoovaTarefas({super.key});
+  const InoovaTarefas({required this.products, super.key});
+  final List<Product> products;
 
   @override
   State<InoovaTarefas> createState() => _InoovaTarefasState();
 }
 
 class _InoovaTarefasState extends State<InoovaTarefas> {
+
+  final _shoppingCart = <Product>{};
+
+  void _handleCartChanged(Product product, bool inCart) {
+    setState(() {
+      // When a user changes what's in the cart, you need
+      // to change _shoppingCart inside a setState call to
+      // trigger a rebuild.
+      // The framework then calls build, below,
+      // which updates the visual appearance of the app.
+
+      if (!inCart) {
+        _shoppingCart.add(product);
+      } else {
+        _shoppingCart.remove(product);
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: "Inoova Tarefas",
       home: Scaffold(
-        body: Column(
-          children: <Widget>[
-            Center(
-              heightFactor: 2,
-              child: Text(
-                "Inoova Tarefas!",
-                textDirection: TextDirection.ltr,
-                style: TextStyle(
-                  fontSize: 32,
-                  color: Colors.black,
-                )
-              ),
-            ),
-            Center(
-              child: Image(
-                image: AssetImage("assets/imagens/inoova.png")
-              ),
-            )
-          ]
+        body: ListView(
+          padding: const EdgeInsets.symmetric(vertical: 8),
+          children: widget.products.map((product) {
+            return ShoppingListItem(
+              product: product,
+              inCart: _shoppingCart.contains(product),
+              onCartChanged: _handleCartChanged,
+            );
+          }).toList(),
         ),
       ),
     );

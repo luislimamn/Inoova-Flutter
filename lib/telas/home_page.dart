@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:inoova/telas/inoova_mapas.dart';
+import 'package:inoova/telas/inoova_hero.dart';
 import 'package:inoova/telas/inoova_musicas.dart';
-import 'package:inoova/telas/inoova_notas.dart';
+import 'package:inoova/telas/inoova_perfil.dart';
+import 'package:inoova/telas/inoova_sliver_appbar.dart';
 import 'package:inoova/telas/inoova_tarefas.dart';
-import 'package:inoova/telas/inoova_videos.dart';
+import '../classes/product.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -55,12 +56,12 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                 icon: Icon(Icons.library_music),
               ),
               Tab(
-                text: "Videos",
+                text: "Tarefas",
                 icon: Icon(Icons.video_library),
               ),
               Tab(
-                text: "Tarefas",
-                icon: Icon(Icons.check_box),
+                text: "Imagem",
+                icon: Icon(Icons.photo),
               ),
               Tab(
                 text: "Notas",
@@ -72,11 +73,19 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
       body: TabBarView(
         controller: _tabController,
         children: const <Widget>[
-          InoovaMapas(),
+          InoovaPerfil(),
           InoovaMusicas(),
-          InoovaVideos(),
-          InoovaTarefas(),
-          InoovaNotas()
+          InoovaTarefas(
+            products: [
+              Product(name: 'Pão'),
+              Product(name: 'Queijo'),
+              Product(name: 'Biscoito'),
+              Product(name: 'Leite'),
+              Product(name: 'Café'),
+            ],
+          ),
+          InoovaHero(),
+          InoovaSliverAppbar()
         ],
       ),
     );

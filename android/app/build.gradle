@@ -23,6 +23,7 @@ if (flutterVersionName == null) {
 }
 
 android {
+    compileSdkVersion localProperties.getProperty('flutter.compileSdkVersion').toInteger()
     namespace "com.inoova.inoova"
     compileSdkVersion flutter.compileSdkVersion
     ndkVersion flutter.ndkVersion
